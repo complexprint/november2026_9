@@ -1,0 +1,29 @@
+{
+  "summary": "Frontend-only verification of the redesigned ComplexPrint homepage (corporate B2B redesign + navy/amber palette). All required sections render (with IntersectionObserver-based lazy mount), all data-testid hooks resolve, task-selector cards navigate to the four service routes, hero CTAs work (calc scrolls to corporate-request section; engineer is tel:+79911857289), trust block shows 4 stats and 25 client chips, corporate-request form disables submit until required fields + terms are checked (form-level validation via disabled submit rather than inline error text), submitting posts to /api/send-repair-request (in preview returns 502 as expected) and a user-facing error message is shown: 'Не удалось отправить заявку. Пожалуйста, позвоните нам по телефону +79911857289'. Header CTA opens the repair modal (data-testid=repair-request-modal). PrivateClientPath section: request CTA opens modal, call CTA is tel:+79911857289, details link goes to /razovyy-remont. Mobile 390x844: mobile-contact-bar visible with mobile-bar-call (tel) and mobile-bar-request (opens modal); hamburger (aria-label='Меню') opens/closes drawer with header-mobile-cta-repair-request; no horizontal scroll on / or /ceny. Internal pages /ceny, /faq, /about-us, /remont-printerov-hp, /analytics load without console errors after the global color-class refactor.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/ceny (mobile)", "issues": ["'Заказать' button uses a red→orange gradient which appears to include red tones; the approved palette says red only for errors — worth double-checking that this button is pure amber (signal) and not the old red gradient."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Minor: React DOM warning in console — 'Invalid DOM property fetchpriority. Did you mean fetchPriority'. Occurs on every route. Somewhere JSX passes fetchpriority (lowercase) to an <img>/<link>. Rename attribute to fetchPriority (camelCase) to silence the warning.",
+    "Optional UX: currently empty-form submit is prevented by disabling the submit button. Spec wording says 'submitting empty shows a visible error message'. Consider showing inline field errors on blur/attempted submit for better a11y, in addition to disabling the button.",
+    "Verify /ceny 'Заказать' button color — appears to have a red-orange gradient; ensure only the amber (signal) accent is used, per the approved palette."
+  ],
+  "critical_code_review_comments": [
+    "Client-side error handling in RepairRequestFormBody correctly surfaces the network failure with a phone-number fallback message — good pattern for the preview vs prod split.",
+    "Home sections use IntersectionObserver-based lazy mount, so a top-level snapshot right after page load will not find corporate-request/private-client/trust-* nodes. Fine for real users, but tests must scroll the page first. Consider setting rootMargin so the sections mount slightly earlier (or hydrate on idle) to prevent CLS on slow devices.",
+    "Console: 'fetchpriority' React warning – fix by using fetchPriority (camelCase) on the offending <img>/<link>."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Preview URL: https://seo-audit-check-5.preview.emergentagent.com. Cookie banner must be dismissed first ('Только необходимые'). Home page uses IntersectionObserver — must scroll down (e.g., window.scrollTo through y=1200..8400) before querying trust-*/corporate-request/private-client data-testids. Form submit posts to /api/send-repair-request which returns 502 in preview (expected). Modal element uses data-testid=repair-request-modal (rendered via portal; offsetParent may be null even when visible — check bounding rect/visibility differently). Mobile hamburger is button[aria-label='Меню']. No backend in this environment.",
+  "rca of the issue": "No blocking issues found. The one recurring console error 'Invalid DOM property fetchpriority. Did you mean fetchPriority?' is a React warning caused by using the HTML attribute name in JSX; rename to fetchPriority (camelCase) in the offending component (likely a hero <img> or a preload <link>)."
+}

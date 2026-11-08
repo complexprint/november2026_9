@@ -1,0 +1,21 @@
+{
+  "summary": "Frontend-only verification of the ' - это ' -> ' - ' text fix across the /analytics section of ComplexPrint. Loaded the analytics list and all 9 article detail pages via the public preview URL, extracted rendered body text and searched for the pattern '- это'. All target assertions pass: Kyocera article contains 'Kyocera - принтерный эмигрант' (not 'Kyocera - это принтерный'); ФЗ-152 article contains the chapter heading 'ваш принтер - компьютер. Просто вы об этом забыли' (not 'ваш принтер - это компьютер'). Total occurrences of '- это' across all 9 rendered articles = 0. All list cards render with cover images (9 images on list), article pages render h1/lead/cover/body/images correctly (7–12 imgs per article). No console errors observed. Cookie banner dismissed via 'Только необходимые'.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Стилистика: после замены '—' -> '-' в тексте статей теперь используется обычный дефис-минус вместо типографского тире. Визуально это может выглядеть беднее, чем нормальное русское тире (—) с неразрывными пробелами. Если это осознанное решение — ок; иначе стоит рассмотреть возврат к '—' с обходом только тех мест, где было ' - это '."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Проверка чисто текстовая. Дев-сервер отдаёт статические статьи из /app/src/data/articles.js. Быстрый способ регрессии: зайти на все 9 статей раздела /analytics и убедиться, что regex /- это\\b/ по body.innerText возвращает 0 совпадений. Также подтвердить наличие ключевых фраз 'Kyocera - принтерный эмигрант' и 'ваш принтер - компьютер'.",
+  "rca of the issue": "Не применимо — багов не обнаружено. Правка ' - это ' -> ' - ' применена корректно во всех 9 статьях; в исходнике /app/src/data/articles.js grep по ' - это ' также возвращает 0 результатов."
+}

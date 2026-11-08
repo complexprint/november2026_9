@@ -1,0 +1,85 @@
+# ============================================================
+# nginx-конфиг для сайта complexprint.ru
+# ============================================================
+# ВАЖНОЕ ОТЛИЧИЕ ОТ ОБЫЧНОЙ SPA-КОНФИГУРАЦИИ:
+#
+# Для React SPA обычно пишут:
+#     try_files $uri /index.html;
+#
+# После настройки пре-рендера у нас есть отдельный HTML для каждого
+# маршрута (build/faq/index.html, build/ceny/index.html и т.д.). Чтобы
+# Яндекс/Google/пользователь получил именно этот HTML — нужно, чтобы
+# nginx СНАЧАЛА проверил директорию с index.html, и только потом
+# делал fallback на корневой index.html.
+#
+# Правильный вариант:
+#     try_files $uri $uri/index.html $uri/ /index.html;
+#              │    │                │      └── SPA fallback (для неизвестных путей)
+#              │    │                └── директория с trailing-slash
+#              │    └── пре-рендер /faq/ → /faq/index.html
+#              └── обычный файл (JS/CSS/картинка)
+#
+# Если у вас FASTPANEL, эту секцию можно вставить в:
+#   «Сайты» → complexprint.ru → «Настройка nginx» → блок location /
+# ============================================================
+
+server {
+    listen 443 ssl http2;
+    server_name complexprint.ru www.complexprint.ru;
+
+    root /var/www/complexprint.ru/build;   # ← путь к содержимому папки build/
+    index index.html;
+
+    # SSL, gzip, security headers и т.д. — сохраняйте свои существующие настройки
+    # ssl_certificate ...;
+    # ssl_certificate_key ...;
+
+    # ── 1) Статические ассеты — долгий кэш ─────────────────────────────────
+    location ~* \.(?:js|mjs|css|woff2?|ttf|otf|eot|svg|ico|png|jpe?g|webp|gif|avif)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # ── 2) sitemap.xml / robots.txt / llms.txt — свежий кэш ────────────────
+    location = /sitemap.xml {
+        expires 1d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+    location = /robots.txt      { expires 1d; try_files $uri =404; }
+    location = /llms.txt        { expires 1d; try_files $uri =404; }
+    location = /llms-full.txt   { expires 1d; try_files $uri =404; }
+    location = /manifest.json   { expires 1d; try_files $uri =404; }
+
+    # ── 3) КЛЮЧЕВОЕ: пре-рендер + SPA fallback ─────────────────────────────
+    # Порядок в try_files критичен — сначала пробуем пре-рендеренный HTML,
+    # только потом отдаём корневой index.html как fallback.
+    location / {
+        # HTML нельзя долго кэшировать, иначе клиенты не увидят обновления пре-рендера.
+        add_header Cache-Control "no-cache, must-revalidate";
+        try_files $uri $uri/index.html $uri/ /index.html;
+    }
+
+    # ── 4) Gzip/Brotli для HTML/JS/CSS (по вкусу, если не глобально включено) ─
+    gzip on;
+    gzip_types text/html text/css application/javascript application/json application/xml image/svg+xml text/xml;
+    gzip_min_length 1024;
+    gzip_vary on;
+}
+
+# ── Редирект с www на без-www (или наоборот — как у вас) ───────────────────
+server {
+    listen 443 ssl http2;
+    server_name www.complexprint.ru;
+    # ssl_certificate ...;
+    # ssl_certificate_key ...;
+    return 301 https://complexprint.ru$request_uri;
+}
+
+# ── Редирект HTTP → HTTPS ──────────────────────────────────────────────────
+server {
+    listen 80;
+    server_name complexprint.ru www.complexprint.ru;
+    return 301 https://complexprint.ru$request_uri;
+}
