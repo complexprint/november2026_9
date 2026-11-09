@@ -283,6 +283,18 @@ export const ROUTES = [
     ],
   },
 
+  {
+    path: "/analytics/orgtehnika-dlya-stroitelnoj-kompanii-plottery-mfu",
+    priority: 0.8,
+    changefreq: "monthly",
+    images: [
+      {
+        loc: "https://complexprint.ru/images/analytics/stroyka-cover.jpg",
+        title: "Оргтехника для строительной компании: плоттеры, МФУ и полевые принтеры",
+      },
+    ],
+  },
+
   // ─── Видео / портфолио работ ──────────────────────────────────────────────
   { path: "/video", priority: 0.75, changefreq: "monthly" },
 
