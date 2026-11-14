@@ -57,6 +57,18 @@ export const ROUTES = [
 
   // ─── Аналитика ────────────────────────────────────────────────────────────
   { path: "/analytics", priority: 0.85, changefreq: "weekly" },
+
+  {
+    path: "/analytics/kakoj-printer-vybrat-dlya-ofisa-2026-kyocera-hp-pantum",
+    priority: 0.8,
+    changefreq: "monthly",
+    images: [
+      {
+        loc: "https://complexprint.ru/images/analytics/office-printer-compare-kyocera-hp-pantum.jpg",
+        title: "Какой принтер выбрать для офиса в 2026 году: сравнение Kyocera, HP и Pantum",
+      },
+    ],
+  },
   {                                                                        // ← НОВОЕ
     path: "/analytics/kak-kompaniya-sokratila-rashody-na-pechat-na-27-procentov",
     priority: 0.8,
