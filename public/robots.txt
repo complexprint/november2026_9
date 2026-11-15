@@ -6,6 +6,7 @@
 # --------- Стандартные поисковые системы ---------
 User-agent: *
 Allow: /
+Allow: /dzen-rss.xml
 Disallow: /api/
 Disallow: /admin/
 Disallow: /*?utm_*
