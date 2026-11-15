@@ -8,6 +8,7 @@ import { Toaster } from "./components/ui/toaster";
 import { Helmet } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 import PageProgressBar from "./components/PageProgressBar";
+import PageTransitionOverlay from "./components/PageTransitionOverlay";
 import PageTransition from "./components/PageTransition";
 import CookieConsent from "./components/CookieConsent";
 import LazyLoad from "./components/LazyLoad";
@@ -149,6 +150,7 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <PageProgressBar />
+        <PageTransitionOverlay />
         <RepairRequestModalProvider>
           <Suspense fallback={<RouteLoader />}>
             <PageTransition>
