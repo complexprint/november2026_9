@@ -235,3 +235,24 @@ select::-ms-expand {
 .box-shadow-custom {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
+
+/* ── Route navigation: soft page fade-in ──────────────────────────────────── */
+@keyframes pageTransitionEnter {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.page-transition-enter {
+  animation: pageTransitionEnter 0.22s ease-out both;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-enter {
+    animation: none;
+  }
+}
