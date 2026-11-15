@@ -68,3 +68,4 @@
 - [Sitemap](https://complexprint.ru/sitemap.xml)
 - [Пользовательское соглашение](https://complexprint.ru/user-agreement)
 - [Условия обслуживания](https://complexprint.ru/terms-of-service)
+- RSS-лента для Яндекс Дзена (Аналитика): https://complexprint.ru/dzen-rss.xml
