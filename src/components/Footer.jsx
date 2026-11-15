@@ -111,7 +111,7 @@ const Footer = () => {
                   <MessageCircle size={14} className="text-white" />
                 </a>
                 <a
-                  href="https://t.me/complexprint"
+                  href="https://t.me/complexprint_mos"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Telegram"

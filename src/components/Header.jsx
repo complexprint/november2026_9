@@ -237,7 +237,7 @@ const Header = () => {
                     <a href="https://wa.me/79911857289" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center shadow-sm" aria-label="WhatsApp">
                       <MessageCircle size={14} className="text-white" />
                     </a>
-                    <a href="https://t.me/complexprint" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center shadow-sm" aria-label="Telegram">
+                    <a href="https://t.me/complexprint_mos" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center shadow-sm" aria-label="Telegram">
                       <Send size={14} className="text-white" />
                     </a>
                   </div>
