@@ -316,3 +316,4 @@ URL: https://complexprint.ru/analytics/obsluzhivanie-printerov-goskontrakty
 ---
 
 *Файл llms-full.txt предназначен для индексации содержимого сайта AI-системами и поисковыми ассистентами (ChatGPT Search, Claude, Perplexity, Google Gemini, Microsoft Copilot и др.) в соответствии со стандартом llmstxt.org.*
+- RSS-лента Яндекс Дзен: https://complexprint.ru/dzen-rss.xml
