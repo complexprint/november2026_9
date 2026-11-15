@@ -7,6 +7,8 @@ import TaskSelector from "./components/corporate/TaskSelector";
 import { Toaster } from "./components/ui/toaster";
 import { Helmet } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
+import PageProgressBar from "./components/PageProgressBar";
+import PageTransition from "./components/PageTransition";
 import CookieConsent from "./components/CookieConsent";
 import LazyLoad from "./components/LazyLoad";
 import MobileContactBar from "./components/MobileContactBar";
@@ -146,9 +148,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ScrollToTop />
+        <PageProgressBar />
         <RepairRequestModalProvider>
           <Suspense fallback={<RouteLoader />}>
-            <Routes>
+            <PageTransition>
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/user-agreement" element={<UserAgreement />} />
               <Route path="/printer-selection" element={<PrinterSelection />} />
@@ -178,6 +182,7 @@ function App() {
               <Route path="/video" element={<Video />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </PageTransition>
           </Suspense>
         </RepairRequestModalProvider>
       </BrowserRouter>
