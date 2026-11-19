@@ -678,12 +678,12 @@ export const articles = [
         {
           "type": "list",
           "items": [
-            "[Обслуживание оргтехники](/uslugi/obsluzhivanie-orgtehniki)",
-            "[Ремонт принтеров для организаций](/uslugi/remont-printerov-dlya-organizacij)",
-            "[Сервисный договор на оргтехнику](/uslugi/servisnyj-dogovor-na-orgtehniku)",
-            "[Выездной ремонт принтеров](/uslugi/vyezdnoj-remont-printerov)",
-            "[Аудит печати](/uslugi/audit-pechati)",
-            "[Абонентское обслуживание](/uslugi/abonentskoe-obsluzhivanie)"
+            "[Абонентское обслуживание оргтехники](/abonentskoe-obsluzhivanie)",
+            "[Ремонт принтеров для организаций](/razovyy-remont)",
+            "[Сервисный договор на оргтехнику](/abonentskoe-obsluzhivanie)",
+            "[Выездной ремонт принтеров](/razovyy-remont)",
+            "[Аудит и аутсорсинг печати (MPS)](/mps-autsorsing-pechati)",
+            "[Покопийное обслуживание принтеров](/pokopiynoe-obsluzhivanie)"
           ]
         },
         {
@@ -4416,6 +4416,7 @@ export const articles = [
  // ═══════════════════════════════════════════════════════════════════════════
  {
  slug: "skolko-stoit-soderzhat-park-printerov-tco",
+    dateModified: "2026-11-19",
  "isCase": true,
  seoTitle: "Сколько стоит парк принтеров в офисе: расчёт TCO",
  seoDescription:

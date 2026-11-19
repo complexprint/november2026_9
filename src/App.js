@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import CorporateHero from "./components/corporate/CorporateHero";
 import TaskSelector from "./components/corporate/TaskSelector";
@@ -182,7 +182,15 @@ function App() {
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/analytics/:slug" element={<AnalyticsArticle />} />
               <Route path="/video" element={<Video />} />
-              <Route path="*" element={<NotFound />} />
+              {/* Редиректы со старых/внешних URL /uslugi/... на действующие страницы услуг */}
+            <Route path="/uslugi/remont-printerov-dlya-organizacij" element={<Navigate to="/razovyy-remont" replace />} />
+            <Route path="/uslugi/vyezdnoj-remont-printerov" element={<Navigate to="/razovyy-remont" replace />} />
+            <Route path="/uslugi/obsluzhivanie-orgtehniki" element={<Navigate to="/abonentskoe-obsluzhivanie" replace />} />
+            <Route path="/uslugi/servisnyj-dogovor-na-orgtehniku" element={<Navigate to="/abonentskoe-obsluzhivanie" replace />} />
+            <Route path="/uslugi/abonentskoe-obsluzhivanie" element={<Navigate to="/abonentskoe-obsluzhivanie" replace />} />
+            <Route path="/uslugi/audit-pechati" element={<Navigate to="/mps-autsorsing-pechati" replace />} />
+            <Route path="/uslugi/*" element={<Navigate to="/abonentskoe-obsluzhivanie" replace />} />
+            <Route path="*" element={<NotFound />} />
             </Routes>
             </PageTransition>
           </Suspense>

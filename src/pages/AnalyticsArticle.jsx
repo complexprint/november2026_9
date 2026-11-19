@@ -243,7 +243,6 @@ const AnalyticsArticle = () => {
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     keywords: article.tags.join(", "),
     inLanguage: "ru-RU",
-    isBasedOn: article.dzenUrl, // указываем оригинал (на Дзене)
   };
 
   const breadcrumbSchema = {
